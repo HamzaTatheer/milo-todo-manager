@@ -1,8 +1,8 @@
 # milo-todo-manager
 
-TO DO list app with personal AI Assistant, named after my cat, milo
+Chat GPT Enabled TO DO list app with an ai bot called milo
 
-## Chat GPT Enabled To Do List built using node.js, docker and deployed on aws
+##  To Do List built using node.js, docker and deployed on aws
 
 
 Version 1:
