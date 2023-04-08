@@ -1,0 +1,88 @@
+<%- include('head', { pageTitle: 'Todo List' }) %>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="#">My Milo.Ai</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="todo">Todo</a>
+            </li>
+
+
+            <% if (!currentUser) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Sign Up</a>
+                </li>
+            <% } else { %>
+                <li>
+                    <a href="" style="font-family: 'Lemon', cursive;">Signed in as <%=currentUser.username%></a>
+                </li>
+                <li>
+                    <a href="/logout" style="font-family: 'Lemon', cursive;">Logout</a>
+                </li>
+            <% } %> 
+            
+
+          </ul>
+        </div>
+      </nav>
+      
+    <hr>
+
+    <div class="container" style="max-width: 512px;">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center mb-5">Sign Up</h1>
+            <form action="/register" method="POST">
+              <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+              </div>
+              <input type="checkbox" onclick="toggle()" >
+              <label>Show Password</label>
+              <hr>
+              <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            </form>
+            <div class="text-center mt-3">
+              Already have an account? <a href="/login">Log in here</a>.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+    <script>
+		function toggle() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+              x.type = "text";
+            } else {
+              x.type = "password";
+            }
+     }
+	</script>
+</body>
+
+</html>

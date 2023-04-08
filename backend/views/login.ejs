@@ -1,0 +1,84 @@
+<%- include('head', { pageTitle: 'Todo List' }) %>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="#">My Milo.Ai</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="todo">Todo</a>
+            </li>
+
+
+            <% if (!currentUser) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Sign Up</a>
+                </li>
+            <% } else { %>
+                <li>
+                    <a href="" style="font-family: 'Lemon', cursive;">Signed in as <%=currentUser.username%></a>
+                </li>
+                <li>
+                    <a href="/logout" style="font-family: 'Lemon', cursive;">Logout</a>
+                </li>
+            <% } %> 
+            
+
+        </ul>
+        </div>
+    </nav>
+
+    <%if(!error.length == 0){%>
+        <div class="container">
+            <div class="alert alert-danger" role="alert">
+                <p><%=error%></p>
+            </div>
+        </div>
+    <%}%>
+    <hr>
+    <div class="container" style="max-width: 512px;">
+
+        <div class="card">
+            <div class="card-body">
+              <h1 class="card-title text-center mb-5">Sign in</h1>
+              <form action="/login" method="POST">
+                <label for="username">Email:</label>
+                <input class="form-control" type="email" autocomplete="off" placeholder="Email.." name="username" id="username"><br>
+                <label for="password">Password:</label>
+                <input class="form-control" type="password" placeholder="Password.." name="password" id="password"><br>
+                <input type="checkbox" onclick="toggle()" >
+                <label>Show Password</label>
+                <button class="btn btn-primary btn-lg btn-block">Login</button>
+            </form>
+            <div class="text-center mt-3">
+                Don't Have An Account Yet? <a href="/register">Sign Up</a>.
+            </div>
+            </div>
+        </div>
+
+
+    </div>
+    <hr>
+    <script>
+		function toggle() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+              x.type = "text";
+            } else {
+              x.type = "password";
+            }
+     }
+	</script>
+</body>
+</html>
+ 

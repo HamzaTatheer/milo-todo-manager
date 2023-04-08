@@ -1,0 +1,28 @@
+<%- include('head', { pageTitle: 'Todo List' }) %>
+
+<body>
+    <style>
+    </style>
+    <%- include('navbar') %>
+
+<div class="container">
+    <form action="/todo/new" method="POST">
+        <h1>Create new Todo</h1>
+        <hr>
+        <label for="title">Todo Title:</label>
+        <input class="form-control" type="text" name="title" id="title" placeholder="Todo Title.." required><br>
+        <label for="title">Todo Description:</label>
+        <textarea class="form-control" name="description" id="description" placeholder="Todo Description.." required></textarea><br>
+        <label for="title">Todo Due Date:</label>
+        <input class="form-control" type="datetime-local" name="duedate" id="duedate" placeholder="Due Date.."><br>
+        <label for="title">Is Urgent?</label>
+        <select class="form-control" id="isurgent" name="isurgent">
+            <option value="Urgent">Urgent</option>
+            <option value="Not Urgent">Not Urgent</option>
+        </select><br>
+        <button class="btn btn-primary btn-lg">Create Todo</button>
+    </form>
+</div>
+</body>
+
+</html>

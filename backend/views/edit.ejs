@@ -1,0 +1,103 @@
+<%- include('head', { pageTitle: 'Todo List' }) %>
+<body>
+    <style>
+        h1 {
+            font-family: 'Lemon', cursive;
+        }
+
+        body {
+            background-color: #005c99;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        p {
+            font-family: 'Lemon', cursive;
+        }
+
+        .container {
+            padding: 15px;
+            border: 1px solid white;
+            background-color: white;
+            margin: auto;
+        }
+
+        button {
+            font-family: 'Lemon', cursive;
+            cursor: pointer;
+        }
+
+        input {
+            font-family: 'Lemon', cursive;
+        }
+
+        textarea {
+            font-family: 'Lemon', cursive;
+        }
+
+        select {
+            font-family: 'Lemon', cursive;
+        }
+
+        label {
+            font-family: 'Lemon', cursive;
+        }
+    </style>
+    <nav class="navbar navbar-default navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/" style="font-family: 'Lemon', cursive;"><i class="home icon"></i>Home
+                </a>
+                <a class="navbar-brand" href="/todo" style="font-family: 'Lemon', cursive;"><i
+                        class="calendar check icon"></i>Todo
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="true">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav navbar-right mr-auto">
+                    <%if(!currentUser){%>
+                    <li><a href="/login" style="font-family: 'Lemon', cursive;">Login</a></li>
+                    <li>
+                        <a href="/register" style="font-family: 'Lemon', cursive;">Sign Up</a>
+                    </li>
+                    <%}else{%>
+                    <li>
+                        <a href="" style="font-family: 'Lemon', cursive;">Signed in as <%=currentUser.username%></a>
+                    </li>
+                    <li>
+                        <a href="/logout" style="font-family: 'Lemon', cursive;">Logout</a>
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+<div class="container">
+    <form action="/todo/<%=todo._id%>/edit?_method=PUT" method="POST">
+        <h1>Update Todo <%=todo.title%></h1>
+        <hr>
+        <label for="title">Todo Title:</label>
+        <input class="form-control" value="<%=todo.title%>" type="text" name="title" id="title" placeholder="Todo Title.." required><br>
+        <label for="title">Todo Description:</label>
+        <textarea class="form-control" name="description" id="description" placeholder="Todo Description.." required><%-todo.description%></textarea><br>
+        <label for="title">Todo Due Date:</label>
+        <input class="form-control" value="<%=moment(todo.dueDate).format('L')%>" type="datetime-local" name="duedate" id="duedate" placeholder="Due Date.."><br>
+        <label for="title">Is Urgent?</label>
+        <select class="form-control" id="isurgent" name="isurgent">
+            <%if(todo.isUrgent == 'Urgent'){%>
+                <option value="Urgent" selected>Urgent</option>
+                <option value="Not Urgent">Not Urgent</option>
+            <%}else{%>
+                <option value="Urgent">Urgent</option>
+                <option value="Not Urgent" selected>Not Urgent</option>
+            <%}%>
+        </select><br>
+        <button class="btn btn-primary btn-lg">Update Todo</button>
+    </form>
+</div>
+</html>

@@ -1,0 +1,81 @@
+<%- include('head', { pageTitle: 'Todo List' }) %>
+<body>
+    <style>
+        h1 {
+            font-family: 'Lemon', cursive;
+            text-align: center;
+        }
+        body{
+            background-color: #005c99;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+        p {
+            font-family: 'Lemon', cursive;
+            text-align: center;
+        }
+
+        div.heading {
+            padding: 50px;
+            margin-top: -19px;
+            width: 100%;
+            height: auto;
+            background-color: #005c99;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            border-bottom: 2px solid black;
+            background-image: url('https://cdn.vox-cdn.com/thumbor/ziCCSdmYMUniSpPoTLD-HBge2TE=/0x0:1792x1162/920x613/filters:focal(319x195:605x481):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/54341261/desktop.0.jpg');
+        }
+
+        a {
+            font-family: 'Lemon', cursive;
+        }
+        a.authenticate:hover{
+            font-size:19px;
+        }
+    </style>
+    <nav class="navbar navbar-default navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/" style="font-family: 'Lemon', cursive;"><i class="home icon"></i>Home
+                </a>
+                <a class="navbar-brand" href="/todo" style="font-family: 'Lemon', cursive;"><i
+                        class="calendar check icon"></i>Todo
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="true">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav navbar-right mr-auto">
+                    <%if(!currentUser){%>
+                        <li><a href="/login" style="font-family: 'Lemon', cursive;">Login</a></li>
+                        <li>
+                            <a href="/register" style="font-family: 'Lemon', cursive;">Sign Up</a>
+                        </li>
+                    <%}else{%>
+                        <li>
+                            <a href="" style="font-family: 'Lemon', cursive;">Signed in as <%=currentUser.username%></a>
+                        </li>
+                        <li>
+                            <a href="/logout" style="font-family: 'Lemon', cursive;">Logout</a>
+                        </li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="heading" align="center">
+        <h1>Welcome to TODO LIST!</h1>
+        <p>Here you can store your TODOS very Securely with great User Interface. You can Do here many things like
+            creating a task, editing it, removing, checking and many more stuff!</p>
+        <a href="/login" class="btn btn-primary btn-lg authenticate">Login<i class="right chevron icon"></i></a><br><br>
+        <a href="/register" class="btn btn-primary btn-lg authenticate">Sign Up<i class="right chevron icon"></i></a>
+    </div>
+</body>
+
+</html>

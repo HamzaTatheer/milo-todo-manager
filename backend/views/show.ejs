@@ -1,0 +1,123 @@
+<%- include('head', { pageTitle: 'Todo List' }) %>
+<body>
+    <style>
+        h1 {
+            font-family: 'Lemon', cursive;
+        }
+        body{
+            background-color: #005c99;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+        p {
+            font-family: 'Lemon', cursive;
+        }
+        .container{
+            padding: 15px;
+            border: 1px solid white; 
+            background-color: white;
+            margin: auto; 
+        }
+        button{
+            font-family: 'Lemon', cursive;
+            cursor: pointer;
+        }
+        a{
+            font-family: 'Lemon', cursive;
+        }
+        form{
+            display: inline;
+        }
+        a.calendar{
+            color: white;
+            background-color: #357ae8;
+            padding:12px;
+            border: 1px solid #025bebf3;
+            border-radius: 5px;
+        }
+        a.calendar:focus{
+            color: white;
+            background-color: #0353d4f3;
+            padding:12px;
+            border: 1px solid #357ae8;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        a.calendar:active{
+            color: white;
+            background-color: #0353d4f3;
+            padding:12px;
+            border: 1px solid #357ae8;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        a.calendar:hover{
+            color: white;
+            background-color: #2568d4f3;
+            padding:12px;
+            border: 1px solid #357ae8;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+    <nav class="navbar navbar-default navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/" style="font-family: 'Lemon', cursive;"><i class="home icon"></i>Home
+                </a>
+                <a class="navbar-brand" href="/todo" style="font-family: 'Lemon', cursive;"><i
+                        class="calendar check icon"></i>Todo
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="true">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav navbar-right mr-auto">
+                    <%if(!currentUser){%>
+                        <li><a href="/login" style="font-family: 'Lemon', cursive;">Login</a></li>
+                        <li>
+                            <a href="/register" style="font-family: 'Lemon', cursive;">Sign Up</a>
+                        </li>
+                    <%}else{%>
+                        <li>
+                            <a href="" style="font-family: 'Lemon', cursive;">Signed in as <%=currentUser.username%></a>
+                        </li>
+                        <li>
+                            <a href="/logout" style="font-family: 'Lemon', cursive;">Logout</a>
+                        </li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+<div class="container">
+    <h1 align="center"><%=todo.title%></h1><hr>
+    <p align="center"><%-todo.description%></p><hr>
+    <p>Date Created: <%=moment(todo.created).format('L')%></p>
+    <p>Due Date: <%=moment(todo.dueDate).format('L')%></p><hr>
+    <%if(todo.isCompleted){%>
+        <p style="color: green;">Completed </p>
+        <form action="<%=todo._id%>/incomplete" method="POST"><button class="btn btn-danger btn-sm">Incomplete</button></form>
+    <%}else{%>
+        <p style="color: red;">Not Completed</p>
+        <form action="<%=todo._id%>/complete" method="POST"><button class="btn btn-success btn-sm">Complete</button></form>
+    <%}%>
+    <hr>
+    <%if(todo.isUrgent === 'Urgent'){%>
+        <p><img src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/50-512.png" width="20px"> <%=todo.isUrgent%></p>
+    <%}else{%>
+        <p><img src="https://cdn1.iconfinder.com/data/icons/flatastic-9/256/flag_green-128.png" width="20px"> <%=todo.isUrgent%></p>
+    <%}%>
+    <hr>
+    <a target="_blank" class="calendar" href="https://calendar.google.com/calendar/u/0/r/eventedit?text=<%= todo.title %> &details=<%= todo.description %> &location=https://todo-list9.herokuapp.com&dates=<%= moment(todo.dueDate).format('YYYY') %><%= moment(todo.dueDate).format('MM') %><%= moment(todo.dueDate).format('DD') %> "><i class="calendar alternate outline icon"></i> Add Task to Google Calendar</a>
+    <hr>
+    <a class="btn btn-warning btn-lg" href="/todo/<%=todo._id%>/edit">Edit Task</a>
+    <form action="/todo/<%=todo._id%>/remove?_method=DELETE" method="POST">
+        <button class="btn btn-danger btn-lg">Remove Task</button>
+    </form>
+</div>
+</html>

@@ -1,0 +1,163 @@
+<%- include('head', { pageTitle: 'Todo List' }) %>
+<body>
+
+    <style>
+    </style>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="brand-name" href="#">MyMilo.Ai</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="todo">Todo</a>
+            </li>
+
+            <% if (!currentUser) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Sign Up</a>
+                </li>
+            <% } else { %>
+                <li>
+                    <a class="nav-link color-primary">Signed in as <u> <%=currentUser.username%> </u></a>
+                </li>
+                
+                <li>
+                    <a class="nav-link" href="/logout">Logout</a>
+
+                </li>
+            <% } %> 
+            
+
+        </ul>
+    </nav>
+
+    <%if(!success.length == 0){%>
+        <div class="container">
+            <div class="alert alert-success" role="alert">
+                <p><%=success%></p>
+            </div>
+        </div>
+    <%}%>
+    <%if(!error.length == 0){%>
+        <div class="container">
+            <div class="alert alert-danger" role="alert">
+                <p><%=error%></p>
+            </div>
+        </div>
+    <%}%>
+
+    <div class="container my-5">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <div class="card chat-box">
+              <div class="card-body">
+                <form>
+                    <h5 class="card-title text-center">
+                    
+                        Hi I am milo
+                        <img src="images/milo_icon.png" width="64px"></img>
+                        your personal assistant.
+                         Ask me about your todo list
+                    </h5>
+
+                    <textarea class="form-control my-2" rows="3" placeholder="Type your message here" name="msg"></textarea>
+                      <button id="chatButton" type="submit" class="btn btn-primary w-100 p-2">Send</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 align="center">Your Todos</h1>
+                </div>
+                <div>
+                    <a class="new btn-md" href="todo/new"><i class='plus icon'></i> Add new Task</a>
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+            <br>
+
+        </div>
+        <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="todos py-5 my-2">
+                <%for(i = 0; i < todos.length; i++){%>
+                 <%if(todos[i].author.id == currentUser.id){%>
+                 <%if(todos[i].isCompleted){%>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p><strike style="color:#a1a1a1;"><em><%=todos[i].title%> - <%=moment(todos[i].created).format('L')%></em></strike><span class="pull-right"></p>
+                           </div>
+                           <div style="height:fit-content">
+                            <a href="todo/<%=todos[i]._id%>" class="btn btn-primary btn-sm">View More</a><hr>
+                           </div>                        
+                    </div>
+
+                 <%}else{%>
+
+                    <div class="d-flex justify-content-between">
+                            <div>
+                            <p><%=todos[i].title%> - <%=moment(todos[i].created).format('L')%><span class="pull-right"></p>
+                            </div>
+                           <div style="height:fit-content">
+                            <a href="todo/<%=todos[i]._id%>" class="btn btn-primary btn-sm">View More</a>
+                            </div>                        
+                    </div>
+                     <hr>
+                 <%}%>
+                 <%}%>
+                <%}%>
+             </div>
+        </div>
+        </div>
+    </div>
+
+
+
+    <footer id="footer">
+
+
+
+          
+
+    </footer>
+</body>
+
+<script>
+    const button = document.getElementById('chatButton');
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/askMilo');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          console.log(xhr.responseText);
+        } else {
+          console.error(xhr.statusText);
+        }
+      };
+      xhr.onerror = function() {
+        console.error('Error sending request');
+      };
+      xhr.send();
+    });
+  </script>
+
+</html>
