@@ -4,7 +4,7 @@
     "target": "es5",
     "lib": ["es5", "dom"],
     "types": ["node", "cypress", "@percy/cypress", "@testing-library/cypress"],
-
+    "noImplicitAny": false,
     "isolatedModules": false
   },
   "include": ["**/*.ts"],
